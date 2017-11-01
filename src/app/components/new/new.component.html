@@ -1,0 +1,35 @@
+<div>
+    <ul>
+        <h3>Selecteds</h3>
+        <li *ngFor="let employee of dataService.Selecteds">
+            <span>{{employee.name}}</span>            
+        </li>
+    </ul>
+</div>
+
+Select Week: <select name="week" >
+  <option value="value" selected>30/10/2017 - 05/11/2017</option>
+  <option value="value">23/10/2017 - 29/10/2017</option>
+</select>
+<div *ngFor="let day of Days">
+  <span>{{day.Description}}</span>    
+  <input type="checkbox" (change)="day.Worked = !day.Worked"> <span>Didn't Work?</span>
+  <fieldset [disabled]="!day.Worked">      
+      Start:
+      <select [(ngModel)]="day.Start" >
+          <option *ngFor="let startHours of day.hours()" [ngValue]="startHours">{{ startHours | convertToHour}}</option>          
+      </select>      
+        End:
+        <select [(ngModel)]="day.End">
+            <option *ngFor="let endHours of day.hours(day.Start)" [ngValue]="endHours">{{ endHours | convertToHour}}</option>          
+        </select>
+        Total:
+        <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
+  </fieldset>
+
+</div>
+<fieldset disabled="disabled">
+    <h3>Total Hours: {{Days | getTotalHours}}</h3>
+  </fieldset>
+<button routerLink="/home" routerLinkActive="active">Cancel</button>
+<button routerLinkActive="active" (click)="save()">Save</button>

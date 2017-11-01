@@ -1,0 +1,28 @@
+<button routerLink="/home" routerLinkActive="active">Back</button>
+<input  [(ngModel)]="searchInput" type="search" placeholder="Search..." value="search">
+
+<button (click)="search(searchInput)">Search</button>
+
+<button (click)="search()">Show All</button>
+<button routerLink="/new" routerLinkActive="active">Next</button>
+<div>
+    <ul>
+        <h3>Search Results</h3>
+        <li *ngFor="let employee of SearchList">
+            <span>{{employee.name}}</span>
+            <button (click)="select(employee)">Add</button>
+        </li>
+    </ul>
+</div>
+
+<div>
+        <ul>
+            <h3>Selecteds</h3>
+            <li *ngFor="let employee of dataService.Selecteds">
+                <span>{{employee.name}}</span>
+                <button (click)="select(employee)">Remove</button>
+            </li>
+        </ul>
+</div>
+    
+<button (click)="test()">Test</button>
