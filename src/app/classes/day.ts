@@ -1,16 +1,21 @@
 export class Day {
-    constructor(Number: number, Description: string){
+    constructor(Number: number, Description: string, Worked: boolean = true){
         this.Number = Number;
         this.Description = Description;
         this.Start = 0;
         this.End = 0;
-        this.Worked = true;
+        this.Worked = Worked;
     }
     Number: number;
     Description: string;
     Start: number;
     End: number;
     Worked: boolean;
+    DayDate: Date;
+
+   setDate(startWeek: Date){
+    this.DayDate = new Date(startWeek.getDate()+1);
+   }
 
    hours(start = 0){
         let result: number[] = [];

@@ -31,7 +31,7 @@ const routes: Routes = [
         component: ManageComponent
     },   
     {
-        path: 'edit',
+        path: 'edit/:employee/:week',
         component: EditComponent
     }   
     

@@ -1,21 +1,26 @@
-Select Week: <select name="week" >
-    <option value="value" selected>30/10/2017 - 05/11/2017</option>
-    <option value="value">23/10/2017 - 29/10/2017</option>
-  </select>
-  <div>
-    <span>Monday</span>    
-    <fieldset disabled="disabled">      
+Week Start: 
+{{Week | date: 'dd/MM/yyyy'}}
+    <span>Interval:</span>
+    <input type="number"/>
+  <div *ngFor="let day of Days">
+    <span>{{day.Description}}</span>    
+    <input type="checkbox" (change)="day.Worked = !day.Worked" [checked]="!day.Worked"> <span>Didn't Work?</span>
+    <fieldset [disabled]="!day.Worked">      
         Start:
-        <select name="monday" >
-            <option value="value" selected>00:00</option>
-            <option value="value">00:00</option>
-          </select>
+        <select [(ngModel)]="day.Start" >
+            <option *ngFor="let startHours of day.hours()" [ngValue]="startHours">{{ startHours | convertToHour}}</option>          
+        </select>      
           End:
-          <select name="monday" >
-              <option value="value" selected>00:00</option>
-              <option value="value">00:00</option>
-            </select>              
+          <select [(ngModel)]="day.End">
+              <option *ngFor="let endHours of day.hours(day.Start)" [ngValue]="endHours">{{ endHours | convertToHour}}</option>          
+          </select>
+          Total:
+          <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
     </fieldset>
+  
   </div>
+  <fieldset disabled="disabled">
+      <h3>Total Hours: {{Days | getTotalHours}}</h3>
+    </fieldset>
   <button routerLink="/home" routerLinkActive="active">Cancel</button>
-  <button routerLink="/manage" routerLinkActive="active">Save</button>
+  <button routerLinkActive="active" (click)="save()">Save</button>

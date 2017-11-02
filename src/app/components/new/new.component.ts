@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Day } from '../../classes/day';
 import { Timesheet } from '../../classes/timesheet';
+import { Week } from '../../classes/week';
+import * as moment from 'moment';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new',
@@ -9,29 +12,55 @@ import { Timesheet } from '../../classes/timesheet';
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
+  ListWeeks: Week[];
   Days: Day[] = [];
-
-  constructor(private dataService : DataService) {}
-
+  Today: moment.Moment;
+  
+  constructor(private dataService : DataService, @Inject(DOCUMENT) private document: any) {}
+  
   ngOnInit() {   
-    this.Days.push(new Day(1, "Monday"));
-    this.Days.push(new Day(2, "Tuesday"));
-    this.Days.push(new Day(3, "Wednesday"));
-    this.Days.push(new Day(4, "Thursday"));
-    this.Days.push(new Day(5, "Friday"));
-    this.Days.push(new Day(6, "Saturday"));
-    this.Days.push(new Day(7, "Sunday"));
+    this.Days.push(new Day(0, "Monday"));
+    this.Days.push(new Day(1, "Tuesday"));
+    this.Days.push(new Day(2, "Wednesday"));
+    this.Days.push(new Day(3, "Thursday"));
+    this.Days.push(new Day(4, "Friday"));
+    this.Days.push(new Day(5, "Saturday", false));
+    this.Days.push(new Day(6, "Sunday", false));
+
+
+    //Initialize ListWeeks
+    this.ListWeeks = this.dataService.getListWeeks();    
+
   }
 
   save(){    
-    this.dataService.Selecteds.forEach(employee => {
+    this.dataService.Selecteds.forEach(employee => {      
+      let timeSheets: Timesheet[] = [];
       this.Days.forEach(day =>{
-        let timeSheet: Timesheet = new Timesheet();
-        
-        this.dataService.saveTimeSheet(new Timesheet);
+        if(day.Worked){
+          let timeSheet: Timesheet = new Timesheet();                
+          timeSheet.start = day.Start;
+          timeSheet.end = day.End;
+          timeSheet.employee = employee.id;
+          timeSheet.interval = 0;        
+          timeSheet.weekStart = this.dataService.SelectedWeek;
+          timeSheet.dayNumber = day.Number;
+          timeSheets.push(timeSheet);        
+        }        
       });
-        
-    });
+      if(!this.dataService.saveTimeSheet(timeSheets)){
+        alert("TimeSheets for " + employee.name + " included with success");
+        document.location.href = "/manage";
+      } else {     
+        alert("One error occurred on include TimeSheet of" + employee.name + "!");
+      }
+
+    });    
+  }
+
+  setWeek(week: Week){
+
+    this.dataService.SelectedWeek = week.Start.toLocaleDateString();
   }
 
 }

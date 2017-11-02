@@ -7,13 +7,15 @@
     </ul>
 </div>
 
-Select Week: <select name="week" >
-  <option value="value" selected>30/10/2017 - 05/11/2017</option>
-  <option value="value">23/10/2017 - 29/10/2017</option>
-</select>
+Select Week: 
+<select [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
+    <option *ngFor="let week of ListWeeks" [ngValue]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</option>
+  </select>
+  <span>Interval:</span>
+  <input type="number"/>
 <div *ngFor="let day of Days">
   <span>{{day.Description}}</span>    
-  <input type="checkbox" (change)="day.Worked = !day.Worked"> <span>Didn't Work?</span>
+  <input type="checkbox" (change)="day.Worked = !day.Worked" [checked]="!day.Worked"> <span>Didn't Work?</span>
   <fieldset [disabled]="!day.Worked">      
       Start:
       <select [(ngModel)]="day.Start" >
