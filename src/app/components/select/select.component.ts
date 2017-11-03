@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Employee } from '../../classes/employee';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-select',
@@ -10,12 +11,12 @@ import { Employee } from '../../classes/employee';
 export class SelectComponent implements OnInit {
 
   SearchList: Employee[] = [];
-  
-  constructor(private dataService : DataService) {}
+  searchInput: string = "";
+  constructor(public dataService : DataService,  private _service:AuthenticationService) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit(){
+    this._service.checkCredentials();
+}
   search(name: string = ""){
     this.dataService.getEmployees(name)
         .subscribe(data => this.SearchList = data.filter(f => !this.dataService.Selecteds.includes(f)));           

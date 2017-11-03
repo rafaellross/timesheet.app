@@ -7,20 +7,21 @@ Week Start:
     <input type="checkbox" (change)="day.Worked = !day.Worked" [checked]="!day.Worked"> <span>Didn't Work?</span>
     <fieldset [disabled]="!day.Worked">      
         Start:
-        <select [(ngModel)]="day.Start" >
-            <option *ngFor="let startHours of day.hours()" [ngValue]="startHours">{{ startHours | convertToHour}}</option>          
+        <select [(ngModel)]="day.Start">            
+            <option *ngFor="let startHours of day.hours()" [attr.value]="startHours">{{ startHours | convertToHour}}</option>          
         </select>      
           End:
           <select [(ngModel)]="day.End">
-              <option *ngFor="let endHours of day.hours(day.Start)" [ngValue]="endHours">{{ endHours | convertToHour}}</option>          
+              <option *ngFor="let endHours of day.hours(day.Start)" [attr.value]="endHours">{{ endHours | convertToHour}}</option>          
           </select>
           Total:
           <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
+          <input type="hidden" [(ngModel)]="day.TimeSheetId">          
     </fieldset>
   
   </div>
   <fieldset disabled="disabled">
-      <h3>Total Hours: {{Days | getTotalHours}}</h3>
+      <h3>Total Hours: {{dataService.calculateTotal(Days) | convertToHour}}</h3>
     </fieldset>
   <button routerLink="/home" routerLinkActive="active">Cancel</button>
-  <button routerLinkActive="active" (click)="save()">Save</button>
+  <button routerLinkActive="active" (click)="save()">Save</button>  

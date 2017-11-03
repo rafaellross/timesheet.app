@@ -9,6 +9,7 @@ import { Headers }        from '@angular/http';
 import * as moment from 'moment';
 import { Week } from '../classes/week';
 import { TimeSheetGroup } from '../classes/timesheetgroup';
+import { Day } from '../classes/day';
 
 @Injectable()
 export class DataService {
@@ -36,13 +37,18 @@ export class DataService {
   }
 
   getEmployees(name: string){
-    return this.http.get('http://localhost/timesheet/list-employees.php?name=' + name)
+    return this.http.get('http://192.168.1.119/timesheet/list-employees.php?name=' + name)
     .map(response => <Employee[]> response.json().data);
   }
   
   getTimeSheets(value: string, key: string){
-    return this.http.get('http://localhost/timesheet/list-timesheet.php?' + key + '=' + value)    
+    return this.http.get('http://192.168.1.119/timesheet/list-timesheet.php?' + key + '=' + value)    
     .map(response => <TimeSheetGroup[]> response.json().data);
+  }
+
+  getTimeSheet(employeeId: string, Week: string){
+    return this.http.get('http://192.168.1.119/timesheet/list-timesheet.php?employee=' + employeeId + '&&weekStart=' + Week)
+    .map(response => <Timesheet[]> response.json().data);
   }
 
   selectEmployee(employee: Employee){    
@@ -55,13 +61,20 @@ export class DataService {
     this.Selecteds = this.Selecteds.filter(item => item !== employee);
   }
 
-  saveTimeSheet(timesheet: Timesheet[]){
+  calculateTotal(days: Day[]){
+    let result = 0;
+    days.forEach(day => {
+      result += day.End - day.Start;
+    });
+    return result;
+  }
+  saveTimeSheet(timesheet: Timesheet[], action: string = "insert"){
     var headers = new Headers();        
     headers.append('Content-Type', 'text/plain');
       
     let options = new RequestOptions({ headers: headers });
     
-    this.http.post('http://localhost/timesheet/save.php', timesheet,{ headers: headers })
+    this.http.post('http://192.168.1.119/timesheet/save.php?action=' + action, timesheet,{ headers: headers })
       .subscribe(
         res => {
           return res;

@@ -5,6 +5,7 @@ import { Timesheet } from '../../classes/timesheet';
 import { Week } from '../../classes/week';
 import * as moment from 'moment';
 import { DOCUMENT } from '@angular/platform-browser';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-new',
@@ -15,10 +16,13 @@ export class NewComponent implements OnInit {
   ListWeeks: Week[];
   Days: Day[] = [];
   Today: moment.Moment;
+  Selectedweek: Week;
   
-  constructor(private dataService : DataService, @Inject(DOCUMENT) private document: any) {}
+  constructor(public dataService : DataService, @Inject(DOCUMENT) private document: any, private _service:AuthenticationService) {}
+  
   
   ngOnInit() {   
+    this._service.checkCredentials();
     this.Days.push(new Day(0, "Monday"));
     this.Days.push(new Day(1, "Tuesday"));
     this.Days.push(new Day(2, "Wednesday"));

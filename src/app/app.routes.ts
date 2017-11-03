@@ -5,11 +5,13 @@ import { NewComponent } from './components/new/new.component';
 import { ManageComponent } from './components/manage/manage.component';
 import { HomeComponent } from './components/home/home.component';
 import { EditComponent } from './components/edit/edit.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
     
     {
         path: '',
+        
         component: LoginComponent
     },    
     {
@@ -31,9 +33,13 @@ const routes: Routes = [
         component: ManageComponent
     },   
     {
+        path: 'admin',
+        component: AdminComponent
+    },   
+    
+    {
         path: 'edit/:employee/:week',
         component: EditComponent
-    }   
-    
+    }       
 ];
 export const RoutingModule = RouterModule.forRoot(routes);

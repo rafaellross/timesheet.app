@@ -1,2 +1,18 @@
-<button routerLink="/select" routerLinkActive="active">Include New Time Sheet</button>
-<button routerLink="/manage" routerLinkActive="active">Manage Time Sheets</button>    
+
+<div class="container align-bottom">
+        <div class="row">
+          <div class="col-sm">            
+          </div>
+          <div class="col-md" style="margin-top:5em">
+                <button class="btn btn-primary btn-lg btn-block" routerLink="/select" routerLinkActive="active">Include New Time Sheet</button>
+                <button class="btn btn-primary btn-lg btn-block" routerLink="/manage" routerLinkActive="active">Manage Time Sheets</button>    
+                <button class="btn btn-primary btn-lg btn-block" routerLink="/admin" routerLinkActive="active" *ngIf="_service.user.administrator">Admin</button>          
+                
+          </div>
+          <div class="col-sm">
+            
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-danger btn-lg btn-block" (click)="logout()">Logout</button>          

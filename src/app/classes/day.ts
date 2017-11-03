@@ -12,6 +12,7 @@ export class Day {
     End: number;
     Worked: boolean;
     DayDate: Date;
+    TimeSheetId: number;
 
    setDate(startWeek: Date){
     this.DayDate = new Date(startWeek.getDate()+1);
