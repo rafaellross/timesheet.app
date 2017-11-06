@@ -10,7 +10,7 @@ import { User } from '../../classes/user';
 
 export class LoginComponent {
 
-  public user = new User('','', false);
+  public user = new User(0, '','', false);
   public errorMsg = '';
 
   constructor(

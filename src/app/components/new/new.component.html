@@ -1,37 +1,51 @@
-<div>
-    <ul>
-        <h3>Selecteds</h3>
-        <li *ngFor="let employee of dataService.Selecteds">
-            <span>{{employee.name}}</span>            
-        </li>
-    </ul>
-</div>
+<mat-tab-group>
+        <mat-tab label="Time Sheet">
+                <mat-card>
+                        Select Week: 
+                        <select [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
+                            <option *ngFor="let week of ListWeeks" [ngValue]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</option>
+                          </select>
+                </mat-card>            
+                <mat-card *ngFor="let day of Days">
+                    <div>
+                            <span>{{day.Description}}</span>    
+                            <input type="checkbox" (change)="day.Worked = !day.Worked" [checked]="!day.Worked"> <span>Didn't Work?</span>
+                            <mat-form-field [attr.disabled]="!day.Worked">      
+                                Start
+                                <mat-select [(ngModel)]="day.Start" >
+                                    <mat-option *ngFor="let startHours of day.hours()" [attr.value]="startHours">{{ startHours | convertToHour}}</mat-option>          
+                                </mat-select>      
+                                    End:
+                                    <mat-select [(ngModel)]="day.End">
+                                        <mat-option *ngFor="let endHours of day.hours(day.Start)" [attr.value]="endHours">{{ endHours | convertToHour}}</mat-option>          
+                                    </mat-select>
+                                    Total:
+                                    <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
+                            </mat-form-field>                              
+                            </div>
+                </mat-card>
 
-Select Week: 
-<select [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
-    <option *ngFor="let week of ListWeeks" [ngValue]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</option>
-  </select>
-  <span>Interval:</span>
-  <input type="number"/>
-<div *ngFor="let day of Days">
-  <span>{{day.Description}}</span>    
-  <input type="checkbox" (change)="day.Worked = !day.Worked" [checked]="!day.Worked"> <span>Didn't Work?</span>
-  <fieldset [disabled]="!day.Worked">      
-      Start:
-      <select [(ngModel)]="day.Start" >
-          <option *ngFor="let startHours of day.hours()" [ngValue]="startHours">{{ startHours | convertToHour}}</option>          
-      </select>      
-        End:
-        <select [(ngModel)]="day.End">
-            <option *ngFor="let endHours of day.hours(day.Start)" [ngValue]="endHours">{{ endHours | convertToHour}}</option>          
-        </select>
-        Total:
-        <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
-  </fieldset>
+                <fieldset disabled="disabled">
+                    <h3>Total Hours: {{Days | getTotalHours}}</h3>
+                  </fieldset>
+                <button routerLink="/home" routerLinkActive="active">Cancel</button>
+                <button routerLinkActive="active" (click)="save()">Save</button>
+            
+        </mat-tab>
+        <mat-tab label="Selecteds">
+                <div *ngIf="dataService.Selecteds.length > 0">
+                        <mat-list>
+                            <h3 mat-subheader>Selecteds</h3>
+                            <mat-list-item *ngFor="let employee of dataService.Selecteds" class="selecteds">
+                                <img matListAvatar [src]="employee.image"/>
+                                <h3 matLine> {{employee.name}} </h3>
+                                <p matLine>
+                                <span>D.O.B: {{employee.dob}} </span>
+                                <span> | Phone: {{employee.phone}} </span>
+                                </p>
+                            </mat-list-item>
+                        </mat-list>                    
+                </div>                                                    
+        </mat-tab>
+      </mat-tab-group>
 
-</div>
-<fieldset disabled="disabled">
-    <h3>Total Hours: {{Days | getTotalHours}}</h3>
-  </fieldset>
-<button routerLink="/home" routerLinkActive="active">Cancel</button>
-<button routerLinkActive="active" (click)="save()">Save</button>

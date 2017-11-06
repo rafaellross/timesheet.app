@@ -1,0 +1,8 @@
+.example-fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.example-container{
+    height: 100vh;
+    z-index: 999;
+}

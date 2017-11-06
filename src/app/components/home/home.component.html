@@ -1,18 +1,11 @@
-
-<div class="container align-bottom">
-        <div class="row">
-          <div class="col-sm">            
-          </div>
-          <div class="col-md" style="margin-top:5em">
-                <button class="btn btn-primary btn-lg btn-block" routerLink="/select" routerLinkActive="active">Include New Time Sheet</button>
-                <button class="btn btn-primary btn-lg btn-block" routerLink="/manage" routerLinkActive="active">Manage Time Sheets</button>    
-                <button class="btn btn-primary btn-lg btn-block" routerLink="/admin" routerLinkActive="active" *ngIf="_service.user.administrator">Admin</button>          
-                
-          </div>
-          <div class="col-sm">
-            
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-danger btn-lg btn-block" (click)="logout()">Logout</button>          
+<mat-list>
+    <h3 mat-subheader>Last Time Sheets</h3>
+    <mat-list-item *ngFor="let timesheet of TimeSheetList" [routerLink]="['/edit', timesheet.id, timesheet.week]">      
+      <h3 matLine> {{timesheet.name}} </h3>
+      <p matLine>
+          <span>{{timesheet.week | date}} </span>
+          <span> - {{timesheet.total | convertToHour}} </span>
+        
+      </p>
+    </mat-list-item>
+  </mat-list>

@@ -1,28 +1,39 @@
 <div class="">
-        <button routerLink="/home" routerLinkActive="active">Back</button>
-        <input  [(ngModel)]="searchInput" type="search" placeholder="Search..." value="search" >
-        
-        <button (click)="search(searchInput)" [disabled]="searchInput.length < 3">Search</button>
-        
-        <button (click)="search()">Show All</button>
-        <button routerLink="/new" routerLinkActive="active" [disabled]="dataService.Selecteds.length === 0">Next</button>
-        <div *ngIf="SearchList.length > 0">
-            <ul>
-                <h3>Search Results</h3>
-                <li *ngFor="let employee of SearchList">
-                    <span>{{employee.name}}</span>
-                    <button (click)="select(employee)">Add</button>
-                </li>
-            </ul>
-        </div>
-        
-        <div *ngIf="dataService.Selecteds.length > 0">
-                <ul>
-                    <h3>Selecteds</h3>
-                    <li *ngFor="let employee of dataService.Selecteds">
-                        <span>{{employee.name}}</span>
-                        <button (click)="unselect(employee)">Remove</button>
-                    </li>
-                </ul>
-        </div>                    
+        <mat-card>                
+                <mat-form-field style="width: 80%;">
+                        <input matInput placeholder="Input" [(ngModel)]="searchInput" type="search" placeholder="Search..." value="search" >
+                </mat-form-field>                                                                
+                <button mat-raised-button color="primary" (click)="search(searchInput)" [disabled]="searchInput.length < 3">Search</button>                
+                <button mat-raised-button (click)="search()">Show All</button>
+                <button mat-raised-button color="warn" routerLink="/new" routerLinkActive="active" [disabled]="dataService.Selecteds.length === 0">Next</button>
+                <div *ngIf="SearchList.length > 0">
+                    <mat-list>
+                        <h3 mat-subheader>Search Results</h3>
+                        <mat-list-item *ngFor="let employee of SearchList" (click)="select(employee)">
+                            <img matListAvatar [src]="employee.image"/>
+                            <h3 matLine> {{employee.name}} </h3>
+                            <p matLine>
+                            <span>D.O.B: {{employee.dob}} </span>
+                            <span> | Phone: {{employee.phone}} </span>
+                            </p>
+                        </mat-list-item>
+                    </mat-list>                    
+                </div>
+        </mat-card>
+        <mat-card>
+                <div *ngIf="dataService.Selecteds.length > 0">
+                        <mat-list>
+                            <h3 mat-subheader>Selecteds</h3>
+                            <mat-list-item *ngFor="let employee of dataService.Selecteds" (click)="unselect(employee)" class="selecteds">
+                                <img matListAvatar [src]="employee.image"/>
+                                <h3 matLine> {{employee.name}} </h3>
+                                <p matLine>
+                                <span>D.O.B: {{employee.dob}} </span>
+                                <span> | Phone: {{employee.phone}} </span>
+                                </p>
+                            </mat-list-item>
+                        </mat-list>                    
+                </div>                    
+        </mat-card>
+
 </div>

@@ -9,10 +9,13 @@ import { Headers }        from '@angular/http';
 import * as moment from 'moment';
 import { Week } from '../classes/week';
 import { TimeSheetGroup } from '../classes/timesheetgroup';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Day } from '../classes/day';
+import { User } from '../classes/user';
 
 @Injectable()
 export class DataService {
+  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
   constructor(private http: Http) { }
   Selecteds: Employee[] = [];
   SelectedWeek: string;
@@ -46,6 +49,10 @@ export class DataService {
     .map(response => <TimeSheetGroup[]> response.json().data);
   }
 
+  getLastTimeSheets(user: User){
+    return this.http.get('http://192.168.1.119/timesheet/list-timesheet.php?user=' + user.id)    
+    .map(response => <TimeSheetGroup[]> response.json().data);
+  }
   getTimeSheet(employeeId: string, Week: string){
     return this.http.get('http://192.168.1.119/timesheet/list-timesheet.php?employee=' + employeeId + '&&weekStart=' + Week)
     .map(response => <Timesheet[]> response.json().data);
