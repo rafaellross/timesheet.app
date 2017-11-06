@@ -1,36 +1,50 @@
 <mat-tab-group>
         <mat-tab label="Time Sheet">
+                <mat-grid-list cols="4" rowHeight="100px">
+                        <mat-grid-tile                            
+                            [colspan]="2"
+                            [rowspan]="1">
+                            <mat-card>
+                                    Select Week: 
+                                    <mat-select [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
+                                        <mat-option *ngFor="let week of ListWeeks" [value]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</mat-option>
+                                      </mat-select>
+                            </mat-card>            
+                                      
+                        </mat-grid-tile>
+                                 
+                      <mat-grid-tile                             *ngFor="let day of Days"
+                      [colspan]="2"
+                      [rowspan]="1">
                 <mat-card>
-                        Select Week: 
-                        <select [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
-                            <option *ngFor="let week of ListWeeks" [ngValue]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</option>
-                          </select>
-                </mat-card>            
-                <mat-card *ngFor="let day of Days">
-                    <div>
-                            <span>{{day.Description}}</span>    
-                            <input type="checkbox" (change)="day.Worked = !day.Worked" [checked]="!day.Worked"> <span>Didn't Work?</span>
-                            <mat-form-field [attr.disabled]="!day.Worked">      
-                                Start
-                                <mat-select [(ngModel)]="day.Start" >
-                                    <mat-option *ngFor="let startHours of day.hours()" [attr.value]="startHours">{{ startHours | convertToHour}}</mat-option>          
-                                </mat-select>      
-                                    End:
-                                    <mat-select [(ngModel)]="day.End">
-                                        <mat-option *ngFor="let endHours of day.hours(day.Start)" [attr.value]="endHours">{{ endHours | convertToHour}}</mat-option>          
-                                    </mat-select>
-                                    Total:
-                                    <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
-                            </mat-form-field>                              
-                            </div>
+                            <mat-card-header>                                
+                                <mat-card-title>{{day.Description}}</mat-card-title>
+                                <mat-slide-toggle (change)="day.Worked = !day.Worked" [checked]="!day.Worked">Didn't Work?</mat-slide-toggle>                                
+                            </mat-card-header>                    
+                            <mat-card-content>      
+                                <mat-form-field>
+                                        <mat-select placeholder="Start" [(ngModel)]="day.Start" name="start">
+                                            <mat-option *ngFor="let startHours of day.hours()" [value]="startHours">{{startHours | convertToHour}}</mat-option>
+                                        </mat-select>
+                                </mat-form-field>   
+                                <mat-form-field>
+                                        <mat-select placeholder="End" [(ngModel)]="day.End" name="end">
+                                                <mat-option *ngFor="let endHours of day.hours(day.Start)" [value]="endHours">{{ endHours | convertToHour}}</mat-option>          
+                                        </mat-select>
+                                </mat-form-field>                            
+                            </mat-card-content>   
+                            <mat-card-footer>
+                                <span>{{(day.End > 0 ? day.End - day.Start : 0) | convertToHour}}</span>
+                            </mat-card-footer>                                                                                
                 </mat-card>
+                </mat-grid-tile>
 
-                <fieldset disabled="disabled">
+            </mat-grid-list> 
+            <fieldset disabled="disabled">
                     <h3>Total Hours: {{Days | getTotalHours}}</h3>
                   </fieldset>
                 <button routerLink="/home" routerLinkActive="active">Cancel</button>
                 <button routerLinkActive="active" (click)="save()">Save</button>
-            
         </mat-tab>
         <mat-tab label="Selecteds">
                 <div *ngIf="dataService.Selecteds.length > 0">

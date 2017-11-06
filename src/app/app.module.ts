@@ -20,7 +20,10 @@ import { AuthenticationService } from './services/authentication.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {
   MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, MatFormFieldModule,
-  MatInputModule, MatGridListModule, MatSidenavModule, MatListModule, MatCardModule,MatTabsModule
+  MatInputModule, MatGridListModule, MatSidenavModule, MatListModule, MatCardModule,MatTabsModule,
+  MatSlideToggleModule,
+  MatSelectModule
+
 
 } from '@angular/material';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -49,7 +52,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
-    MatSidenavModule, MatListModule, MatCardModule, MatTabsModule
+    MatSidenavModule, MatListModule, MatCardModule, MatTabsModule, MatSlideToggleModule, MatSelectModule
   ],
   providers: [AuthenticationService, DataService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
