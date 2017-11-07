@@ -10,14 +10,14 @@ import { User } from '../../classes/user';
 
 export class LoginComponent {
 
-  public user = new User(0, '','', false);
+  public user = new User("0", '','', false);
   public errorMsg = '';
 
   constructor(
       private _service:AuthenticationService) {}
 
-  login() {
-      if(!this._service.login(this.user)){
+  login(user: User) {
+      if(!this._service.login(user)){
           this.errorMsg = 'Failed to login';
       }
   }

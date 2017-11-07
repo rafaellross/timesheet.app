@@ -1,0 +1,37 @@
+
+mat-card-title,  
+mat-card-subtitle, 
+mat-card-header,
+mat-card-content, 
+mat-card-actions,
+mat-card-footer {
+    padding: 24px;
+    margin: 0;
+}
+
+mat-card {
+    background-color: blueviolet;
+    padding: 0px;
+}
+
+mat-card-header {
+    background-color: #3f51b5;   
+    color: aliceblue;    
+    font-weight: bold;
+}
+
+mat-card-title {
+    
+    font-weight: bold; 
+}      
+mat-card-subtitle {
+    background-color: brown;   
+} 
+
+mat-card-content {
+    background-color: crimson;   
+} 
+mat-card-actions {
+    background-color: cadetblue;
+    
+}

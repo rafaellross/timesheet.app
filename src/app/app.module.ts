@@ -22,11 +22,14 @@ import {
   MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, MatFormFieldModule,
   MatInputModule, MatGridListModule, MatSidenavModule, MatListModule, MatCardModule,MatTabsModule,
   MatSlideToggleModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule,
+  MatDatepickerModule
 
 
 } from '@angular/material';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { TestComponent } from './components/test/test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     AdminComponent,
     NavbarComponent,
     DialogComponent,
+    TestComponent,
     
   ],
   imports: [
@@ -52,7 +56,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
-    MatSidenavModule, MatListModule, MatCardModule, MatTabsModule, MatSlideToggleModule, MatSelectModule
+    MatSidenavModule, MatListModule, MatCardModule, MatTabsModule, MatSlideToggleModule, MatSelectModule,
+    MatExpansionModule, MatDatepickerModule
   ],
   providers: [AuthenticationService, DataService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

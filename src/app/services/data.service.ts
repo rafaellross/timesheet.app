@@ -75,6 +75,18 @@ export class DataService {
     });
     return result;
   }
+
+  getUser(user: User){
+    let userResult;
+    var headers = new Headers();        
+    headers.append('Content-Type', 'text/plain');
+      
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.post('http://192.168.1.119/timesheet/user.php?action=get', user,{ headers: headers })
+    .map(response => <User> response.json().data);         
+  }
+
   saveTimeSheet(timesheet: Timesheet[], action: string = "insert"){
     var headers = new Headers();        
     headers.append('Content-Type', 'text/plain');

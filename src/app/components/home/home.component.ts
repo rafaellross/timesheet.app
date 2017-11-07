@@ -11,16 +11,15 @@ import { TimeSheetGroup } from '../../classes/timesheetgroup';
 })
 export class HomeComponent implements OnInit {
   TimeSheetList: TimeSheetGroup[];
-  user: User = new User(0, "", "", false);
+  user: User = new User("0", "", "", false);
 
   constructor(public dataService : DataService, private _service:AuthenticationService) {}
 
   ngOnInit(){
       
       this._service.checkCredentials();
-      this.user = JSON.parse(localStorage.getItem("user")); 
-      this.loadLastTimeSheets(this.user);
-      
+      this.user = <User>JSON.parse(localStorage.getItem("user"))[0]; 
+      this.loadLastTimeSheets(this.user);      
   }
 
   logout() {
