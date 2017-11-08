@@ -17,6 +17,7 @@ export class LoginComponent {
       private _service:AuthenticationService) {}
 
   login(user: User) {
+      
       if(!this._service.login(user)){
           this.errorMsg = 'Failed to login';
       }

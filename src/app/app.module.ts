@@ -18,19 +18,25 @@ import { GetTotalHoursPipe } from './pipes/get-total-hours.pipe';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthenticationService } from './services/authentication.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {CdkTableModule} from '@angular/cdk/table';
 import {
   MatToolbarModule, MatMenuModule, MatButtonModule, MatIconModule, MatFormFieldModule,
   MatInputModule, MatGridListModule, MatSidenavModule, MatListModule, MatCardModule,MatTabsModule,
   MatSlideToggleModule,
   MatSelectModule,
   MatExpansionModule,
-  MatDatepickerModule
+  MatSnackBar, MatSnackBarModule, MatTableModule
 
 
 } from '@angular/material';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { TestComponent } from './components/test/test.component';
+import { RegisterComponent } from './components/users/register/register.component';
+import { ViewComponent } from './components/users/view/view.component';
+import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 @NgModule({
+  exports: [
+    CdkTableModule],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -45,6 +51,9 @@ import { TestComponent } from './components/test/test.component';
     NavbarComponent,
     DialogComponent,
     TestComponent,
+    RegisterComponent,
+    ViewComponent,
+    UserEditComponent,
     
   ],
   imports: [
@@ -57,7 +66,7 @@ import { TestComponent } from './components/test/test.component';
     MatInputModule,
     MatGridListModule,
     MatSidenavModule, MatListModule, MatCardModule, MatTabsModule, MatSlideToggleModule, MatSelectModule,
-    MatExpansionModule, MatDatepickerModule
+    MatExpansionModule, MatSnackBarModule,MatTableModule
   ],
   providers: [AuthenticationService, DataService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

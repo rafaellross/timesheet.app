@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     if(this.user !== null){
       this.isLoggedIn$ = new BehaviorSubject<boolean>(true);
     }
+    
   }
 
   logout(){

@@ -84,9 +84,36 @@ export class DataService {
     let options = new RequestOptions({ headers: headers });
     
     return this.http.post('http://192.168.1.119/timesheet/user.php?action=get', user,{ headers: headers })
-    .map(response => <User> response.json().data);         
+    .map(response => <User[]> response.json().data);         
   }
 
+  getUserById(id: string){
+    let userResult;
+    var headers = new Headers();        
+    headers.append('Content-Type', 'text/plain');
+      
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.post('http://192.168.1.119/timesheet/user.php?action=byId', {"id": id},{ headers: headers })
+    .map(response => <User[]> response.json().data);         
+  }
+
+  saveUser(user: User){
+    var headers = new Headers();        
+    headers.append('Content-Type', 'text/plain');
+      
+    let options = new RequestOptions({ headers: headers });
+    let action = user.id === null ? 'insert' : 'update';
+    this.http.post('http://192.168.1.119/timesheet/user.php?action=' + action, user,{ headers: headers })
+      .subscribe(
+        res => {
+          return res;
+        },
+        err => {
+          return false;
+        }
+      );
+  }  
   saveTimeSheet(timesheet: Timesheet[], action: string = "insert"){
     var headers = new Headers();        
     headers.append('Content-Type', 'text/plain');

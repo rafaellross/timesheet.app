@@ -1,8 +1,15 @@
-<button routerLink="/home" routerLinkActive="active">Home</button>
 Week: 
 <select [(ngModel)]="Selectedweek" (change)="loadTimeSheets(Selectedweek)">
     <option *ngFor="let week of ListWeeks" [ngValue]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</option>
 </select>
-<ul *ngFor="let timesheet of TimeSheetList">
-    <li><a [routerLink]="['/edit', timesheet.id, timesheet.week]" routerLinkActive="active">{{timesheet.name}} - Total: {{timesheet.total | convertToHour}}</a> </li>
-</ul>
+<mat-list>
+    <h3 mat-subheader>Last Time Sheets</h3>
+    <mat-list-item *ngFor="let timesheet of TimeSheetList" [routerLink]="['/edit', timesheet.id, timesheet.week]">      
+      <h3 matLine> {{timesheet.name}} </h3>
+      <p matLine>
+          <span>{{timesheet.week | date}} </span>
+          <span> - {{timesheet.total | convertToHour}} </span>
+        
+      </p>
+    </mat-list-item>
+  </mat-list>

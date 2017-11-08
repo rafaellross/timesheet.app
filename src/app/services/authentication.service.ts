@@ -33,7 +33,7 @@ export class AuthenticationService {
     this.dataService.getUser(user_param)
     .subscribe(
       res => {      
-        this.setUser(res);            
+        this.setUser(res[0]);            
       },
       err => {          
         console.log(err);

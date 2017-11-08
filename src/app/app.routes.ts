@@ -7,6 +7,9 @@ import { HomeComponent } from './components/home/home.component';
 import { EditComponent } from './components/edit/edit.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { TestComponent } from './components/test/test.component';
+import { RegisterComponent } from './components/users/register/register.component';
+import { ViewComponent } from './components/users/view/view.component';
+import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 
 const routes: Routes = [
     
@@ -40,11 +43,23 @@ const routes: Routes = [
     {
         path: 'admin',
         component: AdminComponent
-    },   
-    
+    },       
     {
         path: 'edit/:employee/:week',
         component: EditComponent
+    },
+    {
+        path: 'users/view',
+        component: ViewComponent
+    },
+    {
+        path: 'users/register',
+        component: RegisterComponent
+    },
+    {
+        path: 'users/user-edit/:user-id',
+        component: UserEditComponent
     }       
+           
 ];
 export const RoutingModule = RouterModule.forRoot(routes);

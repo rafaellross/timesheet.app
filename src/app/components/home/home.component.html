@@ -1,4 +1,4 @@
-<mat-list>
+<mat-list *ngIf="TimeSheetList.length > 0">
     <h3 mat-subheader>Last Time Sheets</h3>
     <mat-list-item *ngFor="let timesheet of TimeSheetList" [routerLink]="['/edit', timesheet.id, timesheet.week]">      
       <h3 matLine> {{timesheet.name}} </h3>

@@ -3,5 +3,6 @@ export class User {
       public id: string,
       public username: string,
       public password: string,
-      public administrator: boolean) { }
+      public administrator: boolean,
+      public name: string = "") { }
   }

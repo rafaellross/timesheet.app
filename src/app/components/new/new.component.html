@@ -3,14 +3,11 @@
     <mat-tab label="Time Sheet">
         <mat-grid-list cols="2" rowHeight="190px">
             <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <mat-card>
-                    <mat-card-header>                                
-                            <mat-card-title>Select Week: </mat-card-title>
-                    </mat-card-header>                                    
-                    <mat-select [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
-                        <mat-option *ngFor="let week of ListWeeks" [value]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</mat-option>
-                    </mat-select>
-                </mat-card>            
+            <mat-form-field class="mat-form-field-select">
+                <mat-select placeholder="Select week" [(ngModel)]="Selectedweek" (change)="setWeek(Selectedweek)">
+                        <mat-option *ngFor="let week of ListWeeks" [value]="week">{{week.Start | date: 'dd/MM/yyyy'}} - {{week.End | date: 'dd/MM/yyyy'}}</mat-option>                                        
+                </mat-select>
+            </mat-form-field>
             </mat-grid-tile>
             <div>
                 
@@ -53,7 +50,7 @@
 
         </mat-grid-list> 
         <fieldset disabled="disabled">
-        <h3>Total Hours: {{Days | getTotalHours}}</h3>
+        <h3>Total Hours: {{dataService.calculateTotal(Days) | convertToHour}}</h3>
         </fieldset>
         <button routerLink="/home" routerLinkActive="active">Cancel</button>
         <button routerLinkActive="active" (click)="save()">Save</button>
