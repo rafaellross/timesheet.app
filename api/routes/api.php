@@ -19,9 +19,6 @@ Route::middleware('auth:api')
 });
 */
 Route::group(['middleware' => 'auth:api'], function() {
- 
-});
-
    //Set User routes
    Route::get('users', 'UserController@index');
    Route::get('users/{id}', 'UserController@show');
@@ -42,6 +39,9 @@ Route::group(['middleware' => 'auth:api'], function() {
    Route::post('timesheets', 'TimeSheetController@store');
    Route::put('timesheets/{id}', 'TimeSheetController@update');
    Route::delete('timesheets/{id}', 'TimeSheetController@delete');
+
+
+});
 
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@login');

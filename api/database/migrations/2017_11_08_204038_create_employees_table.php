@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('name');
             $table->string('dob');
             $table->string('phone');            
-            $table->binary('image');
+            $table->binary('image')->nullable();
             $table->timestamps();
         });
     }
