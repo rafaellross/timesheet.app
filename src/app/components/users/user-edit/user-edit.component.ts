@@ -59,7 +59,7 @@ export class UserEditComponent implements OnInit {
       this.openSnackBar("Passords doesn't match", "OK");
     } else {
 */
-console.log(user);
+
       if(!this.dataService.saveUser(user)){
         alert("User " + user.name + " modified with success");
         document.location.href = "#/users/view";

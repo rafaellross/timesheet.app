@@ -15,6 +15,7 @@ import { User } from '../classes/user';
 
 @Injectable()
 export class DataService {
+
   private loggedIn = new BehaviorSubject<boolean>(false); // {1}
   constructor(private http: Http) { }
   Selecteds: Employee[] = [];
@@ -130,4 +131,13 @@ export class DataService {
         }
       );
   }
+
+  loginTest(){
+    
+    return this.http.get('http://localhost:8000/api/users')
+    .map(response => response.json().data);
+    
+  }
+
+
 }
