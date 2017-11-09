@@ -35,8 +35,8 @@ export class TestComponent implements OnInit {
 
     let userResult;
     var headers = new Headers();        
-    
-    headers.append('Access-Control-Allow-Origin','*');
+    headers.append('Content-Type', 'application/json');
+    //headers.append('Access-Control-Allow-Origin','*');
 
       
     let options = new RequestOptions({ headers: headers });

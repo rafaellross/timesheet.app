@@ -3,7 +3,6 @@
 # Create file with below code in above location. And at the end of the file there are other instructions also. 
 # Please check. 
 namespace App\Http\Middleware;
-
 use Closure;
 class CORS {
     /**
