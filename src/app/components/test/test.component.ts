@@ -32,10 +32,12 @@ export class TestComponent implements OnInit {
     let options = new RequestOptions({ headers: headers });
 
     let body  = {"email": "admin@test.com", "password": "toptal" };
+    localStorage.removeItem("auth_token");
     this.http.post(this.apiUrl + '/api/login', body,{ headers: headers })
     .map(response => response.json().data)
     .subscribe(data => {
       this.results = data;
+      localStorage.setItem("auth_token", 'Bearer ' + this.results['api_token'])
     });
 
 
@@ -44,9 +46,9 @@ export class TestComponent implements OnInit {
 
   test(){
 ///api_token
-  this.api_token = this.results['api_token'];
+  
   var headers = new Headers();     
-  headers.append('Authorization', this.api_token);
+  headers.append('Authorization', localStorage.getItem("auth_token"));
   let options = new RequestOptions({ headers: headers });
   this.http.get(this.apiUrl + '/api/users', options)
   .map(response => response.json().data)
